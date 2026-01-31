@@ -117,8 +117,8 @@ CREATE TABLE complaints(
     open_datetime DATETIME,
     closed_datetime DATETIME,
     resolved_datetime DATETIME,
-    CONSTRAINT fk_customer_id
+    CONSTRAINT fk_complaint_customer_id
         FOREIGN KEY (customer_id) REFERENCES customers(id),
-    CONSTRAINT fk_vendor_id
+    CONSTRAINT fk_complaint_vendor_id
         FOREIGN KEY (vendor_id) REFERENCES vendors(id)
 );
