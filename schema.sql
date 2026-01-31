@@ -140,7 +140,7 @@ CREATE TABLE complaints (
 ) ENGINE=InnoDB;
 
 -- ============================================
--- SAMPLE DATA (20 records per table)
+-- SAMPLE DATA (100 products, 20 records for other tables)
 -- ============================================
 
 -- ---------------------------------------------
@@ -194,54 +194,244 @@ INSERT INTO vendors (vendor_name, brand_affiliation, registered_phone, registere
 ('Hat House', 'Cap Corner', '8765432119', 'top@hathouse.com', '220 Head Street, Delhi 110002', '2024-03-15 15:00:00');
 
 -- ---------------------------------------------
--- Products (20 records)
+-- Products (100 records)
 -- ---------------------------------------------
 INSERT INTO products (vendor_id, product_name, price, discount, total_qty, description, status) VALUES
+-- Vendor 1: Fashion Forward Inc (Trendy Threads) - 5 products
 (1, 'Classic Cotton T-Shirt', 599.00, 10.00, 500, 'Premium cotton t-shirt available in multiple colors. Comfortable fit for everyday wear.', 'active'),
 (1, 'Slim Fit Casual Shirt', 1299.00, 15.00, 300, 'Modern slim fit shirt perfect for casual outings. Made from breathable fabric.', 'active'),
+(1, 'Graphic Print Tee', 799.00, 12.00, 450, 'Trendy graphic print t-shirt with unique designs. 100% cotton.', 'active'),
+(1, 'Polo Shirt Classic', 999.00, 8.00, 380, 'Classic polo shirt with embroidered logo. Perfect for smart casual look.', 'active'),
+(1, 'Henley Long Sleeve', 899.00, 10.00, 320, 'Comfortable henley with button placket. Ideal for layering.', 'active'),
+-- Vendor 2: Style Studio (Urban Chic) - 5 products
 (2, 'Designer Blazer', 3999.00, 20.00, 150, 'Stylish blazer for formal occasions. Premium quality with modern cut.', 'active'),
 (2, 'Chino Pants', 1799.00, 12.00, 400, 'Versatile chino pants suitable for work and casual wear.', 'active'),
+(2, 'Linen Summer Blazer', 4499.00, 18.00, 120, 'Lightweight linen blazer perfect for summer events.', 'active'),
+(2, 'Tailored Vest', 2499.00, 15.00, 200, 'Classic tailored vest for layered formal looks.', 'active'),
+(2, 'Pleated Dress Pants', 2199.00, 10.00, 280, 'Elegant pleated pants with superior drape.', 'active'),
+-- Vendor 3: Ethnic Elegance (Desi Drapes) - 5 products
 (3, 'Silk Saree Collection', 4999.00, 5.00, 200, 'Handwoven silk saree with traditional motifs. Perfect for special occasions.', 'active'),
 (3, 'Embroidered Kurta Set', 2499.00, 10.00, 250, 'Elegant kurta set with intricate embroidery work.', 'active'),
+(3, 'Banarasi Silk Saree', 7999.00, 8.00, 100, 'Authentic Banarasi silk with gold zari work. Bridal collection.', 'active'),
+(3, 'Cotton Kurta Pajama', 1899.00, 12.00, 350, 'Comfortable cotton kurta pajama set for daily wear.', 'active'),
+(3, 'Anarkali Suit Set', 3499.00, 15.00, 180, 'Beautiful Anarkali suit with dupatta. Festival ready.', 'active'),
+-- Vendor 4: Casual Comfort Co (Relax Wear) - 5 products
 (4, 'Comfortable Lounge Pants', 899.00, 8.00, 600, 'Super soft lounge pants for ultimate comfort at home.', 'active'),
 (4, 'Relaxed Fit Hoodie', 1499.00, 18.00, 350, 'Cozy hoodie with kangaroo pocket. Perfect for winters.', 'active'),
+(4, 'Fleece Joggers', 1199.00, 10.00, 500, 'Warm fleece joggers with elastic cuffs. Ultimate comfort.', 'active'),
+(4, 'Oversized Sweatshirt', 1299.00, 15.00, 400, 'Trendy oversized sweatshirt in solid colors.', 'active'),
+(4, 'Cotton Pajama Set', 999.00, 5.00, 550, 'Soft cotton pajama set for comfortable sleep.', 'active'),
+-- Vendor 5: Premium Fabrics Ltd (Luxury Line) - 5 products
 (5, 'Premium Wool Suit', 12999.00, 25.00, 100, 'Tailored wool suit for business professionals. Includes jacket and trousers.', 'active'),
 (5, 'Cashmere Sweater', 5999.00, 15.00, 180, 'Luxurious cashmere sweater. Lightweight yet warm.', 'active'),
+(5, 'Italian Silk Shirt', 4999.00, 12.00, 150, 'Premium Italian silk shirt. Smooth and elegant.', 'active'),
+(5, 'Merino Wool Cardigan', 4499.00, 10.00, 200, 'Fine merino wool cardigan with button closure.', 'active'),
+(5, 'Tweed Sports Jacket', 8999.00, 20.00, 80, 'Classic tweed jacket for sophisticated casual style.', 'active'),
+-- Vendor 6: Sporty Styles (Active Gear) - 5 products
 (6, 'Performance Running Shorts', 999.00, 10.00, 450, 'Moisture-wicking shorts designed for runners. Quick dry technology.', 'active'),
 (6, 'Gym Tank Top', 699.00, 5.00, 550, 'Breathable tank top for intense workouts.', 'active'),
+(6, 'Compression Leggings', 1499.00, 12.00, 380, 'High-performance compression leggings for athletes.', 'active'),
+(6, 'Sports Bra Pro', 899.00, 8.00, 420, 'High support sports bra for intense activities.', 'active'),
+(6, 'Training Track Jacket', 1799.00, 15.00, 300, 'Lightweight track jacket with zip pockets.', 'active'),
+-- Vendor 7: Kids Kingdom (Little Stars) - 5 products
 (7, 'Kids Party Dress', 1599.00, 20.00, 300, 'Adorable party dress for little girls. Available in various colors.', 'active'),
 (7, 'Boys Denim Jacket', 1299.00, 15.00, 280, 'Trendy denim jacket for boys. Durable and stylish.', 'active'),
+(7, 'Girls Tutu Skirt', 899.00, 10.00, 400, 'Fluffy tutu skirt perfect for little princesses.', 'active'),
+(7, 'Boys Cargo Shorts', 799.00, 12.00, 450, 'Durable cargo shorts with multiple pockets for active boys.', 'active'),
+(7, 'Kids Raincoat Set', 1199.00, 8.00, 350, 'Colorful raincoat with matching boots. Waterproof.', 'active'),
+-- Vendor 8: Formal Affairs (Corporate Classics) - 5 products
 (8, 'Executive Dress Shirt', 1999.00, 10.00, 400, 'Premium dress shirt for corporate professionals. Wrinkle-resistant fabric.', 'active'),
 (8, 'Formal Trousers', 2299.00, 12.00, 350, 'Classic formal trousers with perfect drape. Multiple color options.', 'active'),
+(8, 'French Cuff Shirt', 2499.00, 15.00, 250, 'Elegant French cuff shirt for formal occasions.', 'active'),
+(8, 'Business Suit Navy', 9999.00, 18.00, 120, 'Classic navy business suit. Two-button single breasted.', 'active'),
+(8, 'Silk Pocket Square Set', 599.00, 5.00, 500, 'Set of 3 silk pocket squares in classic patterns.', 'active'),
+-- Vendor 9: Denim Den (Jean Genius) - 5 products
 (9, 'Classic Blue Jeans', 1899.00, 15.00, 500, 'Timeless blue jeans with comfortable stretch. Perfect everyday wear.', 'active'),
 (9, 'Distressed Denim Shorts', 1199.00, 20.00, 400, 'Trendy distressed shorts for casual summer looks.', 'active'),
+(9, 'Skinny Fit Black Jeans', 2099.00, 12.00, 380, 'Sleek skinny fit jeans in jet black.', 'active'),
+(9, 'Bootcut Vintage Jeans', 2299.00, 10.00, 300, 'Classic bootcut jeans with vintage wash.', 'active'),
+(9, 'Denim Trucker Jacket', 2799.00, 18.00, 250, 'Iconic trucker jacket in premium denim.', 'active'),
+-- Vendor 10: Accessory Avenue (Accent Plus) - 5 products
 (10, 'Leather Belt Collection', 799.00, 5.00, 600, 'Genuine leather belt with classic buckle. Available in brown and black.', 'active'),
-(10, 'Silk Tie Set', 999.00, 10.00, 450, 'Premium silk ties in various patterns. Includes matching pocket square.', 'active');
+(10, 'Silk Tie Set', 999.00, 10.00, 450, 'Premium silk ties in various patterns. Includes matching pocket square.', 'active'),
+(10, 'Canvas Tote Bag', 1299.00, 8.00, 350, 'Durable canvas tote for everyday use.', 'active'),
+(10, 'Leather Wallet Premium', 1499.00, 12.00, 400, 'Genuine leather wallet with multiple card slots.', 'active'),
+(10, 'Cufflinks Gold Plated', 1999.00, 15.00, 200, 'Elegant gold-plated cufflinks for formal wear.', 'active'),
+-- Vendor 11: Winter Warmth (Cozy Collection) - 5 products
+(11, 'Wool Overcoat', 6999.00, 20.00, 150, 'Classic wool overcoat for harsh winters. Fully lined.', 'active'),
+(11, 'Puffer Jacket', 3999.00, 15.00, 280, 'Lightweight puffer jacket with excellent insulation.', 'active'),
+(11, 'Knit Beanie Cap', 499.00, 5.00, 600, 'Warm knit beanie in assorted colors.', 'active'),
+(11, 'Thermal Innerwear Set', 1299.00, 10.00, 450, 'Thermal top and bottom set for extreme cold.', 'active'),
+(11, 'Woolen Muffler', 799.00, 8.00, 500, 'Soft woolen muffler with fringe detail.', 'active'),
+-- Vendor 12: Summer Breeze (Cool Cottons) - 5 products
+(12, 'Linen Shirt Casual', 1599.00, 12.00, 400, 'Breathable linen shirt perfect for summer.', 'active'),
+(12, 'Cotton Shorts Relaxed', 899.00, 8.00, 500, 'Comfortable cotton shorts with elastic waist.', 'active'),
+(12, 'Sleeveless Maxi Dress', 2199.00, 15.00, 300, 'Flowy sleeveless maxi dress for beach outings.', 'active'),
+(12, 'Linen Palazzo Pants', 1799.00, 10.00, 350, 'Wide-leg linen palazzo pants. Ultra comfortable.', 'active'),
+(12, 'Cotton Crop Top', 699.00, 5.00, 450, 'Trendy crop top in solid and printed options.', 'active'),
+-- Vendor 13: Footwear Factory (Step Right) - 5 products
+(13, 'Classic Leather Loafers', 2999.00, 15.00, 250, 'Handcrafted leather loafers for formal occasions.', 'active'),
+(13, 'Running Shoes Pro', 4999.00, 20.00, 300, 'High-performance running shoes with cushioned sole.', 'active'),
+(13, 'Canvas Sneakers', 1499.00, 10.00, 450, 'Casual canvas sneakers in multiple colors.', 'active'),
+(13, 'Leather Sandals', 1299.00, 8.00, 400, 'Comfortable leather sandals for daily wear.', 'active'),
+(13, 'Ankle Boots Suede', 3499.00, 12.00, 200, 'Stylish suede ankle boots for all seasons.', 'active'),
+-- Vendor 14: Bag Bazaar (Carry Style) - 5 products
+(14, 'Leather Messenger Bag', 3499.00, 15.00, 200, 'Premium leather messenger bag for professionals.', 'active'),
+(14, 'Travel Duffel Bag', 2499.00, 12.00, 300, 'Spacious duffel bag perfect for weekend trips.', 'active'),
+(14, 'Ladies Handbag Classic', 2999.00, 10.00, 250, 'Elegant handbag with multiple compartments.', 'active'),
+(14, 'Laptop Backpack Pro', 1999.00, 8.00, 400, 'Padded laptop backpack with USB charging port.', 'active'),
+(14, 'Clutch Evening Bag', 1499.00, 18.00, 350, 'Glamorous clutch for evening events.', 'active'),
+-- Vendor 15: Watch World (Time Trends) - 5 products
+(15, 'Analog Classic Watch', 2999.00, 15.00, 300, 'Elegant analog watch with leather strap.', 'active'),
+(15, 'Smart Fitness Watch', 4999.00, 20.00, 250, 'Feature-rich smartwatch with health tracking.', 'active'),
+(15, 'Chronograph Sports Watch', 5999.00, 18.00, 180, 'Sporty chronograph with water resistance.', 'active'),
+(15, 'Minimalist Dial Watch', 1999.00, 10.00, 400, 'Clean minimalist design for modern style.', 'active'),
+(15, 'Vintage Style Watch', 3499.00, 12.00, 220, 'Retro-inspired watch with roman numerals.', 'active'),
+-- Vendor 16: Jewelry Junction (Sparkle Studio) - 5 products
+(16, 'Gold Plated Necklace', 2499.00, 15.00, 300, '22k gold plated necklace with pendant.', 'active'),
+(16, 'Diamond Stud Earrings', 9999.00, 10.00, 100, 'Certified diamond studs in white gold setting.', 'active'),
+(16, 'Silver Charm Bracelet', 1499.00, 12.00, 400, 'Sterling silver bracelet with customizable charms.', 'active'),
+(16, 'Pearl Drop Earrings', 1999.00, 8.00, 350, 'Elegant freshwater pearl earrings.', 'active'),
+(16, 'Statement Ring Gold', 3499.00, 20.00, 200, 'Bold statement ring in 18k gold finish.', 'active'),
+-- Vendor 17: Eyewear Express (Vision Vogue) - 5 products
+(17, 'Aviator Sunglasses', 1999.00, 15.00, 400, 'Classic aviator sunglasses with UV protection.', 'active'),
+(17, 'Blue Light Glasses', 1499.00, 10.00, 500, 'Computer glasses that block harmful blue light.', 'active'),
+(17, 'Cat Eye Frames', 2499.00, 12.00, 300, 'Trendy cat eye frames for women.', 'active'),
+(17, 'Round Retro Glasses', 1799.00, 8.00, 350, 'Vintage round frames inspired by classics.', 'active'),
+(17, 'Sports Sunglasses', 2999.00, 18.00, 250, 'Polarized sports sunglasses for outdoor activities.', 'active'),
+-- Vendor 18: Belt & Beyond (Waist Wonders) - 5 products
+(18, 'Reversible Leather Belt', 1299.00, 10.00, 450, 'Two-in-one reversible belt. Black and brown.', 'active'),
+(18, 'Braided Canvas Belt', 699.00, 5.00, 550, 'Casual braided belt in multiple colors.', 'active'),
+(18, 'Designer Buckle Belt', 1999.00, 15.00, 300, 'Premium belt with signature designer buckle.', 'active'),
+(18, 'Stretch Comfort Belt', 599.00, 8.00, 500, 'Elastic stretch belt for maximum comfort.', 'active'),
+(18, 'Formal Dress Belt', 1499.00, 12.00, 380, 'Sleek formal belt with polished buckle.', 'active'),
+-- Vendor 19: Scarf Studio (Wrap Style) - 5 products
+(19, 'Silk Scarf Printed', 1999.00, 15.00, 350, 'Luxurious silk scarf with artistic prints.', 'active'),
+(19, 'Cashmere Shawl', 4999.00, 20.00, 150, 'Ultra-soft cashmere shawl for elegance.', 'active'),
+(19, 'Cotton Stole Set', 899.00, 8.00, 500, 'Set of 3 lightweight cotton stoles.', 'active'),
+(19, 'Wool Blend Wrap', 1499.00, 10.00, 400, 'Warm wool blend wrap for winters.', 'active'),
+(19, 'Embroidered Dupatta', 1299.00, 12.00, 350, 'Traditional dupatta with mirror work.', 'active'),
+-- Vendor 20: Hat House (Cap Corner) - 5 products
+(20, 'Baseball Cap Classic', 599.00, 5.00, 600, 'Classic baseball cap with adjustable strap.', 'active'),
+(20, 'Fedora Hat Wool', 1999.00, 15.00, 250, 'Stylish wool fedora for distinguished look.', 'active'),
+(20, 'Sun Hat Wide Brim', 1299.00, 10.00, 350, 'Wide brim sun hat with UV protection.', 'active'),
+(20, 'Bucket Hat Trendy', 799.00, 8.00, 450, 'Trendy bucket hat in solid colors.', 'active'),
+(20, 'Winter Trapper Hat', 1499.00, 12.00, 300, 'Warm trapper hat with ear flaps for cold weather.', 'active');
 
 -- ---------------------------------------------
--- Tags (20 records)
+-- Tags (100 records - covering all products)
 -- ---------------------------------------------
 INSERT INTO tags (tag_name, product_id) VALUES
+-- Tags for Vendor 1 products (1-5)
 ('cotton', 1),
 ('casual', 1),
 ('menswear', 2),
-('formal', 3),
-('blazer', 3),
-('pants', 4),
-('ethnic', 5),
-('silk', 5),
-('traditional', 6),
-('loungewear', 7),
-('winter', 8),
-('hoodie', 8),
-('premium', 9),
-('business', 9),
-('luxury', 10),
-('sportswear', 11),
-('running', 11),
-('gym', 12),
-('kidswear', 13),
-('party', 13);
+('shirt', 2),
+('graphic', 3),
+('tshirt', 3),
+('polo', 4),
+('classic', 4),
+('henley', 5),
+('layering', 5),
+-- Tags for Vendor 2 products (6-10)
+('formal', 6),
+('blazer', 6),
+('pants', 7),
+('chino', 7),
+('linen', 8),
+('summer', 8),
+('vest', 9),
+('tailored', 9),
+('pleated', 10),
+('dressy', 10),
+-- Tags for Vendor 3 products (11-15)
+('ethnic', 11),
+('silk', 11),
+('traditional', 12),
+('kurta', 12),
+('banarasi', 13),
+('bridal', 13),
+('pajama', 14),
+('daily', 14),
+('anarkali', 15),
+('festival', 15),
+-- Tags for Vendor 4 products (16-20)
+('loungewear', 16),
+('comfort', 16),
+('winter', 17),
+('hoodie', 17),
+('fleece', 18),
+('joggers', 18),
+('oversized', 19),
+('sweatshirt', 19),
+('sleepwear', 20),
+('nightwear', 20),
+-- Tags for Vendor 5 products (21-25)
+('premium', 21),
+('business', 21),
+('cashmere', 22),
+('luxury', 22),
+('italian', 23),
+('elegant', 23),
+('merino', 24),
+('cardigan', 24),
+('tweed', 25),
+('sophisticated', 25),
+-- Tags for Vendor 6 products (26-30)
+('sportswear', 26),
+('running', 26),
+('gym', 27),
+('workout', 27),
+('compression', 28),
+('athletic', 28),
+('sports-bra', 29),
+('fitness', 29),
+('training', 30),
+('activewear', 30),
+-- Tags for Vendor 7 products (31-35)
+('kidswear', 31),
+('party', 31),
+('boys', 32),
+('denim', 32),
+('girls', 33),
+('tutu', 33),
+('cargo', 34),
+('shorts', 34),
+('rainwear', 35),
+('waterproof', 35),
+-- Tags for Vendor 8 products (36-40)
+('corporate', 36),
+('executive', 36),
+('trousers', 37),
+('office', 37),
+('french-cuff', 38),
+('formal-shirt', 38),
+('suit', 39),
+('navy', 39),
+('pocket-square', 40),
+('accessories', 40),
+-- Tags for Vendor 9 products (41-45)
+('jeans', 41),
+('blue', 41),
+('distressed', 42),
+('summer-wear', 42),
+('skinny', 43),
+('black', 43),
+('bootcut', 44),
+('vintage', 44),
+('trucker', 45),
+('jacket', 45),
+-- Tags for Vendor 10 products (46-50)
+('belt', 46),
+('leather', 46),
+('tie', 47),
+('formal-accessory', 47),
+('tote', 48),
+('canvas', 48),
+('wallet', 49),
+('genuine-leather', 49),
+('cufflinks', 50),
+('gold-plated', 50);
 
 -- ---------------------------------------------
 -- Tracking (20 records)
