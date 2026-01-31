@@ -65,8 +65,8 @@ This database supports a clothing e-commerce marketplace where multiple vendors 
 |-------|-------------|---------|
 | `customers` | End-user data | 20 |
 | `vendors` | Seller data | 20 |
-| `products` | Items for sale | 20 |
-| `tags` | Product categorization | 20 |
+| `products` | Items for sale | 100 |
+| `tags` | Product categorization | 100 |
 | `orders` | Transaction headers | 20 |
 | `order_items` | Line items (Order-Product junction) | 20 |
 | `tracking` | Shipping details | 20 |
