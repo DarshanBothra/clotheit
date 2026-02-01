@@ -1,4 +1,56 @@
-use clotheit_data
+-- ==========================================
+-- 1. POPULATE AUTH DATABASE
+-- ==========================================
+USE clotheit_auth;
+INSERT INTO users_auth (user_email, password_hash, user_type, session_status) VALUES
+-- CUSTOMERS (Auth IDs 1-20)
+('rahul.sharma@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('priya.patel@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('amit.kumar@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('sneha.reddy@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('vikram.singh@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('anjali.gupta@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('karthik.nair@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('meera.iyer@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('rohan.desai@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('kavita.joshi@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('arjun.menon@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('divya.rao@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('sanjay.verma@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('pooja.agarwal@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('nikhil.saxena@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('swati.mishra@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('deepak.choudhary@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('ritu.sharma@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('manish.tiwari@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+('ananya.das@email.com', 'hashed_pass_123', 'CUSTOMER', 'INACTIVE'),
+-- VENDORS (Auth IDs 21-40)
+('contact@fashionforward.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('sales@stylestudio.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('info@ethnicelegance.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('hello@casualcomfort.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('support@premiumfabrics.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('orders@sportystyles.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('care@kidskingdom.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('business@formalaffairs.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('jeans@denimden.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('style@accessoryavenue.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('warm@winterwarmth.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('fresh@summerbreeze.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('walk@footwearfactory.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('bags@bagbazaar.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('time@watchworld.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('shine@jewelryjunction.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('see@eyewearexpress.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('fit@beltbeyond.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('drape@scarfstudio.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE'),
+('top@hathouse.com', 'hashed_pass_123', 'VENDOR', 'INACTIVE');
+
+-- ==========================================
+-- 2. POPULATE DATA DATABASE
+-- ==========================================
+USE clotheit_data;
+-- Insert Addresses
 INSERT INTO addresses (address_line1, city, state, pincode) VALUES
 -- Customer Addresses (IDs 1-20)
 ('123 MG Road', 'Mumbai', 'Maharashtra', '400001'),
@@ -43,59 +95,53 @@ INSERT INTO addresses (address_line1, city, state, pincode) VALUES
 ('119 Silk Road', 'Varanasi', 'Uttar Pradesh', '221002'),
 ('220 Head Street', 'Delhi', 'Delhi', '110002');
 
--- ---------------------------------------------
--- 2. Insert Customers
--- ---------------------------------------------
-INSERT INTO customers (name, phone, email, billing_address, sign_up_datetime) VALUES
-('Rahul Sharma', '9876543210', 'rahul.sharma@email.com', 1, '2024-01-15 10:30:00'),
-('Priya Patel', '9876543211', 'priya.patel@email.com', 2, '2024-01-20 14:45:00'),
-('Amit Kumar', '9876543212', 'amit.kumar@email.com', 3, '2024-02-05 09:15:00'),
-('Sneha Reddy', '9876543213', 'sneha.reddy@email.com', 4, '2024-02-10 11:00:00'),
-('Vikram Singh', '9876543214', 'vikram.singh@email.com', 5, '2024-02-15 16:30:00'),
-('Anjali Gupta', '9876543215', 'anjali.gupta@email.com', 6, '2024-03-01 08:45:00'),
-('Karthik Nair', '9876543216', 'karthik.nair@email.com', 7, '2024-03-10 12:00:00'),
-('Meera Iyer', '9876543217', 'meera.iyer@email.com', 8, '2024-03-15 15:20:00'),
-('Rohan Desai', '9876543218', 'rohan.desai@email.com', 9, '2024-03-20 10:10:00'),
-('Kavita Joshi', '9876543219', 'kavita.joshi@email.com', 10, '2024-04-01 13:35:00'),
-('Arjun Menon', '9876543220', 'arjun.menon@email.com', 11, '2024-04-10 09:50:00'),
-('Divya Rao', '9876543221', 'divya.rao@email.com', 12, '2024-04-15 14:15:00'),
-('Sanjay Verma', '9876543222', 'sanjay.verma@email.com', 13, '2024-04-20 11:40:00'),
-('Pooja Agarwal', '9876543223', 'pooja.agarwal@email.com', 14, '2024-05-01 16:05:00'),
-('Nikhil Saxena', '9876543224', 'nikhil.saxena@email.com', 15, '2024-05-10 08:30:00'),
-('Swati Mishra', '9876543225', 'swati.mishra@email.com', 16, '2024-05-15 12:55:00'),
-('Deepak Choudhary', '9876543226', 'deepak.choudhary@email.com', 17, '2024-05-20 15:45:00'),
-('Ritu Sharma', '9876543227', 'ritu.sharma@email.com', 18, '2024-06-01 10:20:00'),
-('Manish Tiwari', '9876543228', 'manish.tiwari@email.com', 19, '2024-06-10 13:10:00'),
-('Ananya Das', '9876543229', 'ananya.das@email.com', 20, '2024-06-15 09:00:00');
+-- Insert Customers
+INSERT INTO customers (auth_user_id, name, phone, email, billing_address, sign_up_datetime) VALUES
+(1, 'Rahul Sharma', '9876543210', 'rahul.sharma@email.com', 1, '2024-01-15 10:30:00'),
+(2, 'Priya Patel', '9876543211', 'priya.patel@email.com', 2, '2024-01-20 14:45:00'),
+(3, 'Amit Kumar', '9876543212', 'amit.kumar@email.com', 3, '2024-02-05 09:15:00'),
+(4, 'Sneha Reddy', '9876543213', 'sneha.reddy@email.com', 4, '2024-02-10 11:00:00'),
+(5, 'Vikram Singh', '9876543214', 'vikram.singh@email.com', 5, '2024-02-15 16:30:00'),
+(6, 'Anjali Gupta', '9876543215', 'anjali.gupta@email.com', 6, '2024-03-01 08:45:00'),
+(7, 'Karthik Nair', '9876543216', 'karthik.nair@email.com', 7, '2024-03-10 12:00:00'),
+(8, 'Meera Iyer', '9876543217', 'meera.iyer@email.com', 8, '2024-03-15 15:20:00'),
+(9, 'Rohan Desai', '9876543218', 'rohan.desai@email.com', 9, '2024-03-20 10:10:00'),
+(10, 'Kavita Joshi', '9876543219', 'kavita.joshi@email.com', 10, '2024-04-01 13:35:00'),
+(11, 'Arjun Menon', '9876543220', 'arjun.menon@email.com', 11, '2024-04-10 09:50:00'),
+(12, 'Divya Rao', '9876543221', 'divya.rao@email.com', 12, '2024-04-15 14:15:00'),
+(13, 'Sanjay Verma', '9876543222', 'sanjay.verma@email.com', 13, '2024-04-20 11:40:00'),
+(14, 'Pooja Agarwal', '9876543223', 'pooja.agarwal@email.com', 14, '2024-05-01 16:05:00'),
+(15, 'Nikhil Saxena', '9876543224', 'nikhil.saxena@email.com', 15, '2024-05-10 08:30:00'),
+(16, 'Swati Mishra', '9876543225', 'swati.mishra@email.com', 16, '2024-05-15 12:55:00'),
+(17, 'Deepak Choudhary', '9876543226', 'deepak.choudhary@email.com', 17, '2024-05-20 15:45:00'),
+(18, 'Ritu Sharma', '9876543227', 'ritu.sharma@email.com', 18, '2024-06-01 10:20:00'),
+(19, 'Manish Tiwari', '9876543228', 'manish.tiwari@email.com', 19, '2024-06-10 13:10:00'),
+(20, 'Ananya Das', '9876543229', 'ananya.das@email.com', 20, '2024-06-15 09:00:00');
 
--- ---------------------------------------------
--- 3. Insert Vendors
--- ---------------------------------------------
-INSERT INTO vendors (name, affiliation, phone, email, address, sign_up_datetime) VALUES
-('Fashion Forward Inc', 'Trendy Threads', '8765432100', 'contact@fashionforward.com', 21, '2023-06-01 10:00:00'),
-('Style Studio', 'Urban Chic', '8765432101', 'sales@stylestudio.com', 22, '2023-06-15 11:30:00'),
-('Ethnic Elegance', 'Desi Drapes', '8765432102', 'info@ethnicelegance.com', 23, '2023-07-01 09:45:00'),
-('Casual Comfort Co', 'Relax Wear', '8765432103', 'hello@casualcomfort.com', 24, '2023-07-20 14:00:00'),
-('Premium Fabrics Ltd', 'Luxury Line', '8765432104', 'support@premiumfabrics.com', 25, '2023-08-05 12:15:00'),
-('Sporty Styles', 'Active Gear', '8765432105', 'orders@sportystyles.com', 26, '2023-08-20 16:30:00'),
-('Kids Kingdom', 'Little Stars', '8765432106', 'care@kidskingdom.com', 27, '2023-09-01 10:45:00'),
-('Formal Affairs', 'Corporate Classics', '8765432107', 'business@formalaffairs.com', 28, '2023-09-15 08:00:00'),
-('Denim Den', 'Jean Genius', '8765432108', 'jeans@denimden.com', 29, '2023-10-01 13:20:00'),
-('Accessory Avenue', 'Accent Plus', '8765432109', 'style@accessoryavenue.com', 30, '2023-10-20 15:40:00'),
-('Winter Warmth', 'Cozy Collection', '8765432110', 'warm@winterwarmth.com', 31, '2023-11-01 11:00:00'),
-('Summer Breeze', 'Cool Cottons', '8765432111', 'fresh@summerbreeze.com', 32, '2023-11-15 09:30:00'),
-('Footwear Factory', 'Step Right', '8765432112', 'walk@footwearfactory.com', 33, '2023-12-01 14:50:00'),
-('Bag Bazaar', 'Carry Style', '8765432113', 'bags@bagbazaar.com', 34, '2023-12-15 10:15:00'),
-('Watch World', 'Time Trends', '8765432114', 'time@watchworld.com', 35, '2024-01-01 12:00:00'),
-('Jewelry Junction', 'Sparkle Studio', '8765432115', 'shine@jewelryjunction.com', 36, '2024-01-15 16:20:00'),
-('Eyewear Express', 'Vision Vogue', '8765432116', 'see@eyewearexpress.com', 37, '2024-02-01 08:45:00'),
-('Belt & Beyond', 'Waist Wonders', '8765432117', 'fit@beltbeyond.com', 38, '2024-02-15 13:30:00'),
-('Scarf Studio', 'Wrap Style', '8765432118', 'drape@scarfstudio.com', 39, '2024-03-01 11:10:00'),
-('Hat House', 'Cap Corner', '8765432119', 'top@hathouse.com', 40, '2024-03-15 15:00:00');
+-- Insert Vendors
+INSERT INTO vendors (auth_user_id, name, affiliation, phone, email, address, sign_up_datetime) VALUES
+(21, 'Fashion Forward Inc', 'Trendy Threads', '8765432100', 'contact@fashionforward.com', 21, '2023-06-01 10:00:00'),
+(22, 'Style Studio', 'Urban Chic', '8765432101', 'sales@stylestudio.com', 22, '2023-06-15 11:30:00'),
+(23, 'Ethnic Elegance', 'Desi Drapes', '8765432102', 'info@ethnicelegance.com', 23, '2023-07-01 09:45:00'),
+(24, 'Casual Comfort Co', 'Relax Wear', '8765432103', 'hello@casualcomfort.com', 24, '2023-07-20 14:00:00'),
+(25, 'Premium Fabrics Ltd', 'Luxury Line', '8765432104', 'support@premiumfabrics.com', 25, '2023-08-05 12:15:00'),
+(26, 'Sporty Styles', 'Active Gear', '8765432105', 'orders@sportystyles.com', 26, '2023-08-20 16:30:00'),
+(27, 'Kids Kingdom', 'Little Stars', '8765432106', 'care@kidskingdom.com', 27, '2023-09-01 10:45:00'),
+(28, 'Formal Affairs', 'Corporate Classics', '8765432107', 'business@formalaffairs.com', 28, '2023-09-15 08:00:00'),
+(29, 'Denim Den', 'Jean Genius', '8765432108', 'jeans@denimden.com', 29, '2023-10-01 13:20:00'),
+(30, 'Accessory Avenue', 'Accent Plus', '8765432109', 'style@accessoryavenue.com', 30, '2023-10-20 15:40:00'),
+(31, 'Winter Warmth', 'Cozy Collection', '8765432110', 'warm@winterwarmth.com', 31, '2023-11-01 11:00:00'),
+(32, 'Summer Breeze', 'Cool Cottons', '8765432111', 'fresh@summerbreeze.com', 32, '2023-11-15 09:30:00'),
+(33, 'Footwear Factory', 'Step Right', '8765432112', 'walk@footwearfactory.com', 33, '2023-12-01 14:50:00'),
+(34, 'Bag Bazaar', 'Carry Style', '8765432113', 'bags@bagbazaar.com', 34, '2023-12-15 10:15:00'),
+(35, 'Watch World', 'Time Trends', '8765432114', 'time@watchworld.com', 35, '2024-01-01 12:00:00'),
+(36, 'Jewelry Junction', 'Sparkle Studio', '8765432115', 'shine@jewelryjunction.com', 36, '2024-01-15 16:20:00'),
+(37, 'Eyewear Express', 'Vision Vogue', '8765432116', 'see@eyewearexpress.com', 37, '2024-02-01 08:45:00'),
+(38, 'Belt & Beyond', 'Waist Wonders', '8765432117', 'fit@beltbeyond.com', 38, '2024-02-15 13:30:00'),
+(39, 'Scarf Studio', 'Wrap Style', '8765432118', 'drape@scarfstudio.com', 39, '2024-03-01 11:10:00'),
+(40, 'Hat House', 'Cap Corner', '8765432119', 'top@hathouse.com', 40, '2024-03-15 15:00:00');
 
--- ---------------------------------------------
--- 4. Insert Products (Removed Description and Status columns as they aren't in Schema)
--- ---------------------------------------------
+-- Insert Products
 INSERT INTO products (vendor_id, name, price, discount, total_qty) VALUES
 (1, 'Classic Cotton T-Shirt', 599.00, 10.00, 500),
 (1, 'Slim Fit Casual Shirt', 1299.00, 15.00, 300),
@@ -198,9 +244,7 @@ INSERT INTO products (vendor_id, name, price, discount, total_qty) VALUES
 (20, 'Bucket Hat Trendy', 799.00, 8.00, 450),
 (20, 'Winter Trapper Hat', 1499.00, 12.00, 300);
 
--- ---------------------------------------------
--- 5. Insert Tags
--- ---------------------------------------------
+-- Insert Tags
 INSERT INTO tags (tag_name, product_id) VALUES
 ('cotton', 1), ('casual', 1),
 ('menswear', 2), ('shirt', 2),
@@ -303,9 +347,7 @@ INSERT INTO tags (tag_name, product_id) VALUES
 ('bucket-hat', 99), ('trendy', 99),
 ('trapper', 100), ('winter', 100);
 
--- ---------------------------------------------
--- 6. Insert Tracking (Corrected ENUM case)
--- ---------------------------------------------
+-- Insert Tracking
 INSERT INTO tracking (status, partner, packaging_date, shipped_date, deliver_date, cancelled_date) VALUES
 ('DELIVERED', 'BlueDart',    '2024-05-31 09:00:00', '2024-06-01 09:00:00', '2024-06-03 14:30:00', NULL),
 ('DELIVERED', 'Delhivery',   '2024-06-01 14:00:00', '2024-06-02 10:30:00', '2024-06-05 11:00:00', NULL),
@@ -328,9 +370,7 @@ INSERT INTO tracking (status, partner, packaging_date, shipped_date, deliver_dat
 ('DELIVERED', 'DTDC',        '2024-07-14 10:00:00', '2024-07-15 09:30:00', '2024-07-18 14:20:00', NULL),
 ('PACKAGING', 'Ecom Express','2024-07-18 08:00:00', NULL,                  NULL,                  NULL);
 
--- ---------------------------------------------
--- 7. Insert Orders (Corrected ENUM case)
--- ---------------------------------------------
+-- Insert Orders
 INSERT INTO orders (customer_id, tracking_id, order_datetime, order_total, status) VALUES
 (1, 1, '2024-05-30 15:30:00', 2398.00, 'DELIVERED'),
 (2, 2, '2024-06-01 10:00:00', 4999.00, 'DELIVERED'),
@@ -353,9 +393,7 @@ INSERT INTO orders (customer_id, tracking_id, order_datetime, order_total, statu
 (19, 19, '2024-07-14 13:00:00', 1499.00, 'DELIVERED'),
 (20, 20, '2024-07-17 08:30:00', 7498.00, 'PLACED');
 
--- ---------------------------------------------
--- 8. Insert Order Items (Mapped purchase_price -> price, purchase_qty -> qty)
--- ---------------------------------------------
+-- Insert Order Items
 INSERT INTO order_items (order_id, product_id, price, qty) VALUES
 (1, 1, 539.10, 2),
 (1, 2, 1104.15, 1),
@@ -386,9 +424,7 @@ INSERT INTO order_items (order_id, product_id, price, qty) VALUES
 (20, 51, 5599.20, 1),
 (20, 41, 1614.15, 1);
 
--- ---------------------------------------------
--- 9. Insert Complaints (Corrected ENUM case)
--- ---------------------------------------------
+-- Insert Complaints
 INSERT INTO complaints (customer_id, vendor_id, user_type, description, status, open_datetime, closed_datetime, resolved_datetime) VALUES
 (1, NULL, 'CUSTOMER', 'Product received was damaged. T-shirt had a tear on the sleeve.', 'RESOLVED', '2024-06-05 10:00:00', NULL, '2024-06-08 14:30:00'),
 (2, NULL, 'CUSTOMER', 'Saree color does not match the product image on the website.', 'RESOLVED', '2024-06-08 11:30:00', NULL, '2024-06-12 09:00:00'),
