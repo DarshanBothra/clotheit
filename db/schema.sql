@@ -28,30 +28,44 @@ CREATE TABLE addresses(
 );
 CREATE TABLE customers(
     id INT AUTO_INCREMENT PRIMARY KEY,
+    auth_user_id INT NOT NULL UNIQUE,
     name VARCHAR(255) NOT NULL,
     phone CHAR(10) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     billing_address INT NOT NULL,
     payment_method ENUM('CASH', 'CREDIT_CARD', 'DEBIT_CARD', 'NET_BANKING', 'UPI') NOT NULL DEFAULT 'CASH',
     sign_up_datetime DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_customer_email (email),
+    INDEX idx_customer_phone (phone),
     CONSTRAINT fk_customer_billing_address
         FOREIGN KEY (billing_address)
         REFERENCES addresses(id)
         ON DELETE RESTRICT,
+    CONSTRAINT fk_customer_auth
+        FOREIGN KEY (auth_user_id)
+        REFERENCES clotheit_auth.users_auth(user_id)
+        ON DELETE CASCADE,
     CHECK (phone REGEXP '^[0-9]{10}$')
 );
 CREATE TABLE vendors(
     id INT AUTO_INCREMENT PRIMARY KEY,
+    auth_user_id INT NOT NULL UNIQUE,
     name VARCHAR(255) NOT NULL,
     affiliation VARCHAR(255),
     phone CHAR(10) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     address INT NOT NULL,
     sign_up_datetime DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_vendor_email (email),
+    INDEX idx_vendor_brand (affiliation),
     CONSTRAINT fk_vendor_address
         FOREIGN KEY (address)
         REFERENCES addresses(id)
         ON DELETE RESTRICT,
+    CONSTRAINT fk_vendor_auth
+        FOREIGN KEY (auth_user_id)
+        REFERENCES clotheit_auth.users_auth(user_id)
+        ON DELETE CASCADE,
     CHECK (phone REGEXP '^[0-9]{10}$')
 );
 CREATE TABLE tracking(
@@ -61,16 +75,19 @@ CREATE TABLE tracking(
     packaging_date DATETIME,
     shipped_date DATETIME,
     deliver_date DATETIME,
-    cancelled_date DATETIME
-
+    cancelled_date DATETIME,
+    INDEX idx_tracking_status (status)
 );
 CREATE TABLE orders(
     id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
     order_datetime DATETIME DEFAULT NULL,
     order_total DECIMAL(10, 2) NOT NULL,
-    tracking_id INT NOT NULL UNIQUE,
+    tracking_id INT UNIQUE,
     status enum('PROCESSING', 'DELIVERED', 'CANCELLED', 'PLACED') DEFAULT 'PROCESSING' NOT NULL,
+    INDEX idx_order_customer (customer_id),
+    INDEX idx_order_status (status),
+    INDEX idx_order_datetime (order_datetime),
     CONSTRAINT fk_customer_id 
         FOREIGN KEY (customer_id)
         REFERENCES customers(id),
@@ -85,6 +102,8 @@ CREATE TABLE products(
     price DECIMAL(10, 2) NOT NULL,
     discount DECIMAL(10, 2),
     total_qty INT NOT NULL,
+    INDEX idx_product_vendor (vendor_id),
+    INDEX idx_product_price (price),
     CONSTRAINT fk_vendor_id
         FOREIGN KEY (vendor_id)
         REFERENCES vendors(id)
@@ -95,6 +114,8 @@ CREATE TABLE order_items(
     product_id INT NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     qty INT NOT NULL,
+    INDEX idx_orderitem_order (order_id),
+    INDEX idx_orderitem_product (product_id),
     CONSTRAINT fk_order_id
         FOREIGN KEY (order_id)
         REFERENCES orders(id),
@@ -105,7 +126,12 @@ CREATE TABLE order_items(
 CREATE TABLE tags(
     id INT AUTO_INCREMENT PRIMARY KEY,
     tag_name VARCHAR(255),
-    product_id INT NOT NULL
+    product_id INT NOT NULL,
+    INDEX idx_tag_product (product_id),
+    INDEX idx_tag_name (tag_name),
+    CONSTRAINT fk_producttag_id
+        FOREIGN KEY (product_id)
+        REFERENCES products(id)
 );
 CREATE TABLE complaints(
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -117,6 +143,9 @@ CREATE TABLE complaints(
     open_datetime DATETIME,
     closed_datetime DATETIME,
     resolved_datetime DATETIME,
+    INDEX idx_complaint_customer (customer_id),
+    INDEX idx_complaint_vendor (vendor_id),
+    INDEX idx_complaint_status (status),
     CONSTRAINT fk_complaint_customer_id
         FOREIGN KEY (customer_id) REFERENCES customers(id),
     CONSTRAINT fk_complaint_vendor_id
