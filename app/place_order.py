@@ -15,13 +15,19 @@ from datetime import datetime
 DB_CONFIG = {
     "host": "localhost",
     "user": "clotheit",
-    "password": "CLOTHEIT@2026#",
+    "password": "Clotheit@2026",
     "database": "clotheit_data",
 }
 
 
 def get_connection():
-    return mysql.connector.connect(**DB_CONFIG)
+    try:
+        return mysql.connector.connect(**DB_CONFIG, autocommit=True)
+    except Error as e:
+        print(f"\nCould not connect to MySQL: {e}")
+        print("Make sure the database is set up:")
+        print("  mysql -u root -p < db/setup.sql")
+        raise SystemExit(1)
 
 
 # ──────────────────────────────────────────────

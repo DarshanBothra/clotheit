@@ -10,18 +10,25 @@ Provides a menu-driven CLI for:
 """
 
 import mysql.connector
+from mysql.connector import Error
 from tabulate import tabulate
 
 DB_CONFIG = {
     "host": "localhost",
     "user": "clotheit",
-    "password": "CLOTHEIT@2026#",
+    "password": "Clotheit@2026",
     "database": "clotheit_data",
 }
 
 
 def get_connection():
-    return mysql.connector.connect(**DB_CONFIG)
+    try:
+        return mysql.connector.connect(**DB_CONFIG)
+    except Error as e:
+        print(f"\nCould not connect to MySQL: {e}")
+        print("Make sure the database is set up:")
+        print("  mysql -u root -p < db/setup.sql")
+        raise SystemExit(1)
 
 
 # ──────────────────────────────────────────────
@@ -110,7 +117,7 @@ def monthly_sales(conn):
     cursor = conn.cursor(dictionary=True)
     cursor.execute(
         """
-        SELECT DATE_FORMAT(o.order_datetime, '%%Y-%%m') AS month,
+        SELECT DATE_FORMAT(o.order_datetime, '%Y-%m') AS month,
                COUNT(o.id) AS orders,
                SUM(o.order_total) AS revenue,
                ROUND(AVG(o.order_total), 2) AS avg_order
