@@ -101,11 +101,11 @@ def place_order(conn, customer_id, cart):
         order_total = 0
         enriched_items = []
         for item in cart:
-        cursor.execute(
-            "SELECT id, price, discount, total_qty "
-            "FROM products WHERE id = %s FOR UPDATE",
-            (item["product_id"],),
-        )
+            cursor.execute(
+                "SELECT id, price, discount, total_qty "
+                "FROM products WHERE id = %s FOR UPDATE",
+                (item["product_id"],),
+            )
             prod = cursor.fetchone()
             if not prod:
                 raise ValueError(f"Product {item['product_id']} not found")
