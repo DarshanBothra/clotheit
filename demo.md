@@ -1,4 +1,4 @@
-# Demo Walkthrough — Task 4 & Task 5
+# Demo Walkthrough — Task 4, Task 5 & Task 6
 
 ## Before the demo (prep, do this the night before)
 
@@ -215,6 +215,99 @@ Then open your browser to **http://localhost:5173/**
 
 ---
 
+---
+
+## Part 3: Task 6 — Database Transactions (Including Conflicting Ones)
+
+### Step 1: Show the SQL transactions file
+
+Open the MySQL CLI (Terminal 1):
+
+```bash
+mysql -u clotheit -p'Clotheit@2026' clotheit_data
+```
+
+Then run:
+
+```sql
+SOURCE db/transactions.sql;
+```
+
+### What to say
+
+> "For Task 6, we wrote and executed database transactions — including conflicting ones — and studied their effects on the database. Let me first run the standalone SQL transactions."
+
+As the SQL output scrolls, narrate each one:
+
+> **Transaction 1** — "This is a successful order placement. We start a transaction, insert a tracking record, an order header, and two line items — then COMMIT. Notice the stock for products 1 and 2 decreased automatically. That's because the triggers from Task 5 fire during the INSERT into `order_items`."
+
+> **Transaction 2** — "Now we try to order 99,999 units of a product that only has about 80 in stock. The BEFORE INSERT trigger raises an error and rejects the insert. We ROLLBACK, and you can see the stock is completely unchanged — atomicity in action."
+
+> **Transaction 3** — "This demonstrates SAVEPOINTs. We update prices for three products, creating a savepoint after each update. After the third update — which is intentionally wrong — we ROLLBACK TO SAVEPOINT to undo only that change. Products 41 and 42 keep their new prices, but product 43 stays untouched."
+
+> **Transaction 4** — "We cancel the order from Transaction 1. The `trg_restore_stock_on_cancel` trigger fires automatically and adds back the stock for all items in that order."
+
+---
+
+### Step 2: Run the Python transactions script (the main demo)
+
+This is the impressive part. In Terminal 1:
+
+```bash
+source venv/bin/activate
+python app/transactions.py
+```
+
+### What to say before running
+
+> "Now let me run the full Python demo. This script executes 6 transaction scenarios — the first four use single connections, and the last two simulate concurrent sessions using threads to show conflicting transactions."
+
+### What to say as each scenario runs
+
+**Scenario 1 — COMMIT:**
+> "A customer places an order — the transaction creates tracking, order header, and line items atomically. You can see the stock decreased by the exact quantities ordered."
+
+**Scenario 2 — ROLLBACK:**
+> "Now the customer tries to order way more than what's in stock. The trigger blocks the insert, we catch the error, and ROLLBACK. The stock is unchanged and no orphaned records remain. This is atomicity — all or nothing."
+
+**Scenario 3 — SAVEPOINT:**
+> "We update three product prices, but the third one is wrong. Instead of rolling back everything, we ROLLBACK TO SAVEPOINT — undoing only the bad update while keeping the good ones."
+
+**Scenario 4 — CANCEL + STOCK RESTORE:**
+> "We cancel the order from Scenario 1. Watch the stock numbers — the trigger automatically restores the quantities for both products."
+
+**Scenario 5 — DIRTY READ PREVENTION (this is a conflict demo!):**
+> "This is where it gets interesting. Two sessions run concurrently."
+> "Session A starts a transaction and changes a product's price to ₹1.00, but doesn't commit."
+> "Session B — running at READ COMMITTED isolation — reads the same product. It sees the **original** price, not the ₹1.00. The dirty read is prevented."
+> "Then Session A rolls back. The price never actually changed. This demonstrates the Isolation property of ACID."
+
+**Scenario 6 — WRITE-WRITE CONFLICT / LOST UPDATE (this is the big one!):**
+> "Two buyers try to purchase the last 5 units of the same product at the same time."
+> "Buyer A uses `SELECT ... FOR UPDATE` — this acquires a row-level lock. Buyer A sees 5 in stock and orders 3."
+> "Buyer B runs the same `SELECT ... FOR UPDATE` but gets **blocked** — it waits until Buyer A commits."
+> "When Buyer B finally gets the lock, it sees the updated stock — now only 2 — so it adjusts its order accordingly. No overselling happened."
+> "Without the FOR UPDATE lock, both buyers would read 5 and both would order their full quantities — that's a **lost update**, and we'd have negative stock. The lock prevents that."
+
+### What to say when all scenarios complete
+
+> "So to summarize Task 6 — we demonstrated all four ACID properties in practice:
+> - **Atomicity** through COMMIT and ROLLBACK,
+> - **Consistency** through trigger-enforced constraints,
+> - **Isolation** by showing that READ COMMITTED prevents dirty reads,
+> - and we demonstrated **row-level locking** with FOR UPDATE to prevent lost updates in concurrent transactions.
+> We also showed SAVEPOINT for partial rollbacks and trigger-driven stock restoration on order cancellation."
+
+---
+
+## Wrapping up
+
+### What to say at the end
+
+> "So across Tasks 4, 5, and 6 — we have 15 SQL queries covering all relational operations, two Python applications with embedded SQL, three database triggers, and a full transaction demo including concurrency conflict scenarios with dirty reads and lost updates. And we built a React web UI on top of it all."
+
+---
+
 ## Quick reference — all commands in order
 
 | Step | Terminal | Command |
@@ -227,3 +320,5 @@ Then open your browser to **http://localhost:5173/**
 | Start API | 2 | `cd ~/clotheit && source venv/bin/activate && python app/server.py` |
 | Start frontend | 3 | `cd ~/clotheit/frontend && npm run dev` |
 | Open browser | — | http://localhost:5173/ |
+| **Task 6: SQL transactions** | 1 | `SOURCE db/transactions.sql` |
+| **Task 6: Python demo** | 1 | `python app/transactions.py` |
