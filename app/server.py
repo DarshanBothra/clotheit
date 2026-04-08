@@ -280,6 +280,60 @@ def api_place_order():
         return jsonify({"error": str(e)}), 500
 
 
+# ─── Cancel Order ─────────────────────────────────────
+
+@app.put("/api/orders/<int:oid>/cancel")
+def api_cancel_order(oid):
+    conn = get_conn()
+    cur = conn.cursor(dictionary=True)
+    try:
+        conn.autocommit = False
+        conn.start_transaction()
+
+        cur.execute("SELECT id, status FROM orders WHERE id = %s FOR UPDATE", (oid,))
+        order = cur.fetchone()
+        if not order:
+            conn.rollback()
+            cur.close()
+            conn.close()
+            return jsonify({"error": "Order not found"}), 404
+
+        if order["status"] == "CANCELLED":
+            conn.rollback()
+            cur.close()
+            conn.close()
+            return jsonify({"error": "Order is already cancelled"}), 400
+
+        if order["status"] == "DELIVERED":
+            conn.rollback()
+            cur.close()
+            conn.close()
+            return jsonify({"error": "Cannot cancel a delivered order"}), 400
+
+        # Update order status — the trg_restore_stock_on_cancel trigger
+        # will automatically restore stock for every item in this order
+        cur.execute(
+            "UPDATE orders SET status = 'CANCELLED' WHERE id = %s", (oid,))
+
+        # Also update tracking status
+        cur.execute(
+            "UPDATE tracking t JOIN orders o ON o.tracking_id = t.id "
+            "SET t.status = 'CANCELLED', t.cancelled_date = NOW() "
+            "WHERE o.id = %s", (oid,))
+
+        conn.commit()
+        cur.close()
+        conn.close()
+        return jsonify({"message": f"Order #{oid} cancelled successfully",
+                         "order_id": oid}), 200
+
+    except Error as e:
+        conn.rollback()
+        cur.close()
+        conn.close()
+        return jsonify({"error": str(e)}), 500
+
+
 # ─── Analytics ────────────────────────────────────────
 
 @app.get("/api/analytics/low-stock")

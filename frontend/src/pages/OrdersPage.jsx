@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { fetchOrders } from '../api'
 import OrderCard from '../components/OrderCard'
 
@@ -6,13 +6,17 @@ export default function OrdersPage({ customerId }) {
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+  const loadOrders = useCallback(() => {
     if (customerId == null) return
     setLoading(true)
     fetchOrders(customerId)
       .then(setOrders)
       .finally(() => setLoading(false))
   }, [customerId])
+
+  useEffect(() => {
+    loadOrders()
+  }, [loadOrders])
 
   return (
     <div className="min-h-screen bg-slate-50 p-6">
@@ -30,7 +34,7 @@ export default function OrdersPage({ customerId }) {
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
-            <OrderCard key={order.order_id} order={order} />
+            <OrderCard key={order.order_id} order={order} onRefresh={loadOrders} />
           ))}
         </div>
       )}

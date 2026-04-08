@@ -69,3 +69,7 @@ export function fetchTopProducts(limit) {
 export function fetchComplaints() {
   return apiFetch('/analytics/complaints');
 }
+
+export function cancelOrder(orderId) {
+  return apiFetch(`/orders/${orderId}/cancel`, { method: 'PUT' });
+}
